@@ -18,9 +18,22 @@ class RegisterUsuariosController extends BaseController
     {
         $request = \Config\Services::request();
         $registroModel = new RegisterUsuariosModel();
-        $user = $request->getPost('user');
+        $nameUser = $request->getPost('user');
         $emailuser = $request->getPost('emailuser');
         $telephoneuser = $request->getPost('telephoneuser');
-        $registroModel->addUser($user, $emailuser, $telephoneuser);
+        $password = $request->getPost("passworduser");
+        $datos = base_url() . '/public/registerUser';
+        $emailRepetidos=$registroModel->emailRepetidos($emailuser);
+        if($emailRepetidos[0]->email !=$emailuser){
+            $registroModel->addUser($nameUser, $emailuser, $telephoneuser, $password);
+            return redirect()->to($datos);
+        }else{
+            echo view('errorEmailRepetidos_view');
+            echo view('layouts/footer');
+        }
+
+
+
+       
     }
 }

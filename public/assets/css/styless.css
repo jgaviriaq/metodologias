@@ -15,6 +15,10 @@
     background-size: cover;
 }
 
+.body1{
+    background-color: rgb(1,60,100);
+}
+
 .main-section1{
     margin: 0 auto;
     margin-top: 18%;
@@ -88,4 +92,8 @@
 
 .formulario_mensaje p{
   margin: 0;
+}
+
+.profile-area{
+    padding: 80px 0;
 }

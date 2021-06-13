@@ -7,10 +7,15 @@ use mysqli;
 
 class RegisterUsuariosModel extends Model
 {
-    function addUser($nameUser,$emailUser,$telephoneUser){
-         $sql = "INSERT INTO  propietario (nombre, email, telefono) VALUES ('{$nameUser}', '{$emailUser}', '{$telephoneUser}')";
+    function addUser($nameUser,$emailUser,$telephoneUser, $password){
+          $sql = "INSERT INTO  propietario (nombre,email,telefono,password) VALUES ('{$nameUser}','{$emailUser}','{$telephoneUser}','{$password}')";
          $this ->db->query($sql);   
         }
 
+        function emailRepetidos($email){
+            $sql = "SELECT * FROM propietario WHERE email='{$email}'";
+            $rol = $this->db->query($sql);
+            return $rol->getResult();
+        }
   
 }
