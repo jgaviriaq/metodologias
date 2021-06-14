@@ -35,7 +35,9 @@ $routes->setAutoRoute(true);
 $routes->get('/', 'Home::index');
 $routes->get('/registerUser', 'RegisterUsuariosController::index');
 $routes->POST('/addPropietario', 'RegisterUsuariosController::addPropietario');
-
+$routes->get('/perfil', 'RegisterUsuariosController::viewOwner');
+$routes->get('/login', 'RegisterUsuariosController::login');
+$routes->POST('/signIn', 'RegisterUsuariosController::SignIn');
 
 
 /*

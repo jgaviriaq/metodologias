@@ -19,10 +19,10 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item ">
-                        <a class="nav-link active ms-5 " aria-current="page" href="">Log in</a>
+                        <a class="nav-link active ms-5 " aria-current="page" href="<?php echo base_Url(); ?>/public/login">Log in</a>
                     </li>
                     <li class="nav-item ">
-                        <a class="nav-link active ms-5 " aria-current="page" href="">Register user</a>
+                        <a class="nav-link active ms-5 " aria-current="page" href="<?php echo base_Url(); ?>/public/registerUser">Register user</a>
                     </li>
                 </ul>
             </div>
