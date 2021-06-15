@@ -22,13 +22,7 @@
                         <a class="nav-link active ms-5 " aria-current="page" href="<?php echo base_Url(); ?>/public/login">Log in</a>
                     </li>
                     <li class="nav-item ">
-                        <a class="nav-link active ms-5 " aria-current="page" href="<?php echo base_url() ?>/public/perfilPropietario">Perfil</a>
-                    </li>
-                    <li class="nav-item ">
-                        <a class="nav-link active ms-5 " aria-current="page" href="<?php echo base_url() ?>/public/pagos">Pagos</a>
-                    </li>
-                    <li class="nav-item ">
-                        <a class="nav-link active ms-5 " aria-current="page" href="<?php echo base_url() ?>/public/salir">Salir</a>
+                        <a class="nav-link active ms-5 " aria-current="page" href="<?php echo base_Url(); ?>/public/registerUser">Register user</a>
                     </li>
                 </ul>
             </div>

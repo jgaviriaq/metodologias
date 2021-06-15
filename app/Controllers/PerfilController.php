@@ -17,6 +17,7 @@ class PerfilController extends BaseController
 			$data = array(
 				"Perfil" => $resultPerfil,
 			);
+			
 			echo view('perfil_view', $data);
 			echo view('layouts/footer');
 		} else {

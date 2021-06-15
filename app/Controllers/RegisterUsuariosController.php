@@ -17,8 +17,13 @@ class RegisterUsuariosController extends BaseController
 
     public function pagos()
     {
-        echo view('layouts/header');
-        echo view('ownerProfile');
+        $registroModel = new RegisterUsuariosModel();
+        //inicializando sesión
+        $session = session();
+        $emailuser = $session->get('email');
+        $userData = $registroModel->getUser($emailuser);
+
+        echo view('pagos', array('user' => $userData));
         echo view('layouts/footer');
     }
 
@@ -64,7 +69,7 @@ class RegisterUsuariosController extends BaseController
 
             $aptoData = $aptoModel->getApto($idUser);
             // echo view('layouts/header');
-            echo view('dashboard',  array('user' => $userData, 'aparments'=>$aptoData));
+            echo view('dashboard',  array('user' => $userData, 'aparments' => $aptoData));
             echo view('layouts/footer');
         } else {
             echo '<div class="alert alert-danger" role="alert">Correo y/o constraseña invalidos</div>';
@@ -96,27 +101,25 @@ class RegisterUsuariosController extends BaseController
         $registroModel = new RegisterUsuariosModel();
         $aptoModel = new AptoModel();
 
-         //inicializando sesión
-         $session = session();
-         
-         $idUser = $session->get('id');
-         $emailuser = $session->get('email');
+        //inicializando sesión
+        $session = session();
 
-         if ($session->get('email') != "" || $session->get('email') != null) {
-			// //trayendo datos del modelo
+        $idUser = $session->get('id');
+        $emailuser = $session->get('email');
+
+        if ($session->get('email') != "" || $session->get('email') != null) {
+            // //trayendo datos del modelo
             $userData = $registroModel->getUser($emailuser);
             $aptoData = $aptoModel->getApto($idUser);
-    
-            echo view('dashboard', array('user' => $userData, 'aparments'=>$aptoData));
-            echo view('layouts/footer');
-		} else {
-			echo view('layouts/header');
-			echo "<h1 class=' mt-5 text-center text-danger'>404 </h1>";
-			echo "<h1 class='text-center text-danger'>PAGE NOT FOUND </h1>";
-			echo view('layouts/footer');
-		}
 
-         
+            echo view('dashboard', array('user' => $userData, 'aparments' => $aptoData));
+            echo view('layouts/footer');
+        } else {
+            echo view('layouts/header');
+            echo "<h1 class=' mt-5 text-center text-danger'>404 </h1>";
+            echo "<h1 class='text-center text-danger'>PAGE NOT FOUND </h1>";
+            echo view('layouts/footer');
+        }
     }
 
     public function signOut()
@@ -132,10 +135,5 @@ class RegisterUsuariosController extends BaseController
         echo view('layouts/header');
         echo view('registerUsuarios_view');
         echo view('layouts/footer');
-    }
-
-    public function profile()
-    {
-        echo view('profile');
     }
 }
