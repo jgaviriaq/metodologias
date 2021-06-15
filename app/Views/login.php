@@ -25,7 +25,7 @@
                 </div>
 
                 <div class="mb-3">
-                    <button type="submit" class="btn btn-primary"><i class="fas fa-sign-in-alt"></i> Registrar</button>
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-sign-in-alt"></i>Iniciar Sesión</button>
                 </div>
             </form>
         </div>
