@@ -3,7 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\RegisterUsuariosModel;
-use PhpParser\Node\Stmt\Echo_;
+use App\Models\AptoModel;
 
 class RegisterUsuariosController extends BaseController
 {
@@ -33,6 +33,7 @@ class RegisterUsuariosController extends BaseController
     {
         $request = \Config\Services::request();
         $registroModel = new RegisterUsuariosModel();
+        $aptoModel = new AptoModel();
 
         $emailuser = $request->getPost('emailuser');
         $password = $request->getPost("passworduser");
@@ -61,7 +62,9 @@ class RegisterUsuariosController extends BaseController
             $session->set($newData);
             $idUser = $session->get('id');
 
-            echo view('home_view');
+            $aptoData = $aptoModel->getApto($idUser);
+            // echo view('layouts/header');
+            echo view('dashboard',  array('user' => $userData, 'aparments'=>$aptoData));
             echo view('layouts/footer');
         } else {
             echo '<div class="alert alert-danger" role="alert">Correo y/o constraseña invalidos</div>';
@@ -88,18 +91,51 @@ class RegisterUsuariosController extends BaseController
         }
     }
 
-    public function viewOwner()
+    public function dashboard()
     {
+        $registroModel = new RegisterUsuariosModel();
+        $aptoModel = new AptoModel();
+
+         //inicializando sesión
+         $session = session();
+         
+         $idUser = $session->get('id');
+         $emailuser = $session->get('email');
+
+         if ($session->get('email') != "" || $session->get('email') != null) {
+			// //trayendo datos del modelo
+            $userData = $registroModel->getUser($emailuser);
+            $aptoData = $aptoModel->getApto($idUser);
+    
+            echo view('dashboard', array('user' => $userData, 'aparments'=>$aptoData));
+            echo view('layouts/footer');
+		} else {
+			echo view('layouts/header');
+			echo "<h1 class=' mt-5 text-center text-danger'>404 </h1>";
+			echo "<h1 class='text-center text-danger'>PAGE NOT FOUND </h1>";
+			echo view('layouts/footer');
+		}
+
+         
+    }
+
+    public function signOut()
+    {
+
+        $session = session();
+        $newData = [
+            'logged_in' => FALSE
+        ];
+        $session->set($newData);
+        $session->destroy();
+
         echo view('layouts/header');
-        echo view('ownerProfile');
+        echo view('registerUsuarios_view');
         echo view('layouts/footer');
     }
 
-    public function salir()
+    public function profile()
     {
-        $session = session();
-        $session->destroy();
-        $datos = base_url() . '/public/login';
-        return    redirect()->to($datos);
+        echo view('profile');
     }
 }

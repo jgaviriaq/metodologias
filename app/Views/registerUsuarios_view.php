@@ -39,7 +39,7 @@
                     <p><i class="fas fa-exclamation-triangle"></i> <b>Error:</b> Digite todos los campos</p>
                 </div>
 
-                <div class="mb-3">
+                <div class="mb-5">
                     <button type="submit" class="btn btn-primary"><i class="fas fa-sign-in-alt"></i> Registrar</button>
                 </div>
             </form>

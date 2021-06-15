@@ -35,17 +35,18 @@ $routes->setAutoRoute(true);
 $routes->get('/', 'Home::index');
 $routes->get('/registerUser', 'RegisterUsuariosController::index');
 $routes->POST('/addPropietario', 'RegisterUsuariosController::addPropietario');
-$routes->get('/perfil', 'RegisterUsuariosController::viewOwner');
+$routes->get('/dashboard', 'RegisterUsuariosController::dashboard');
 $routes->get('/login', 'RegisterUsuariosController::login');
 $routes->POST('/signIn', 'RegisterUsuariosController::SignIn');
 $routes->get('/perfilPropietario', 'PerfilController::index');
 $routes->POST('/updatePerfil', 'PerfilController::updatePerfil');
-$routes->get('/salir', 'RegisterUsuariosController::salir');
 $routes->get('/pagos', 'RegisterUsuariosController::pagos');
-
-
-
-
+$routes->get('/signOut', 'RegisterUsuariosController::signOut');
+$routes->get('/profile', 'RegisterUsuariosController::profile');
+$routes->post('/updateApto', 'AptoController::updateApto');
+$routes->get('/deleteApto', 'AptoController::deleteApto');
+$routes->get('/registerApto', 'AptoController::registerApto');
+$routes->post('/addApto', 'AptoController::addApto');
 
 
 /*

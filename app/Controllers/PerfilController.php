@@ -15,9 +15,9 @@ class PerfilController extends BaseController
 			$perfilUser = new RegisterPerfilModel();
 			$resultPerfil = $perfilUser->readPerfil();
 			$data = array(
-                "Perfil" => $resultPerfil,
-            );
-			echo view('perfil_view',$data);
+				"Perfil" => $resultPerfil,
+			);
+			echo view('perfil_view', $data);
 			echo view('layouts/footer');
 		} else {
 			echo view('denegado_view');
@@ -33,11 +33,8 @@ class PerfilController extends BaseController
 		$nameUser = $request->getPost('nameUser');
 		$telefono = $request->getPost('telefono');
 		$image = $request->getPost('image');
-		$registroPerfilModel->updatePerfil($id,$nameUser,$telefono,$image);
+		$registroPerfilModel->updatePerfil($id, $nameUser, $telefono, $image);
 		$datos = base_url() . '/public/perfilPropietario';
 		return	redirect()->to($datos);
-				
 	}
-
-
 }
