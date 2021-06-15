@@ -9,7 +9,7 @@ class RegisterUsuariosController extends BaseController
 {
     public function index()
     {
-        echo view('layouts/header1');
+        echo view('layouts/header');
         echo view('registerUsuarios_view');
         echo view('layouts/footer');
     }
@@ -24,7 +24,7 @@ class RegisterUsuariosController extends BaseController
 
     public function login()
     {
-        echo view('layouts/header1');
+        echo view('layouts/header');
         echo view('login');
         echo view('layouts/footer');
     }
