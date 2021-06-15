@@ -27,6 +27,7 @@
                 <div class="mb-3">
                     <button type="submit" class="btn btn-primary"><i class="fas fa-sign-in-alt"></i>Iniciar Sesión</button>
                 </div>
+                <a id="link" href="<?php echo base_url(); ?>/public/registerUser">Registrarse</a>
             </form>
         </div>
     </div>

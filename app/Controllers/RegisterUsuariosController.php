@@ -9,14 +9,22 @@ class RegisterUsuariosController extends BaseController
 {
     public function index()
     {
-        echo view('layouts/header');
+        echo view('layouts/header1');
         echo view('registerUsuarios_view');
+        echo view('layouts/footer');
+    }
+
+
+    public function pagos()
+    {
+        echo view('layouts/header');
+        echo view('ownerProfile');
         echo view('layouts/footer');
     }
 
     public function login()
     {
-        echo view('layouts/header');
+        echo view('layouts/header1');
         echo view('login');
         echo view('layouts/footer');
     }
@@ -28,7 +36,7 @@ class RegisterUsuariosController extends BaseController
 
         $emailuser = $request->getPost('emailuser');
         $password = $request->getPost("passworduser");
-        
+
 
         //Encriptar contraseña
         $sha = sha1($password);
@@ -39,7 +47,7 @@ class RegisterUsuariosController extends BaseController
         // //trayendo datos del modelo
         $userData = $registroModel->getUser($emailuser);
 
-    
+
         // //Comparar contraseña del input con la BD
         $hash =  password_hash($sha, CRYPT_BLOWFISH);
 
@@ -53,12 +61,11 @@ class RegisterUsuariosController extends BaseController
             $session->set($newData);
             $idUser = $session->get('id');
 
-            echo view('layouts/header');
-            echo view('ownerProfile');
+            echo view('home_view');
             echo view('layouts/footer');
-        }else {
-        	echo '<div class="alert alert-danger" role="alert">Correo y/o constraseña invalidos</div>';
-        	return view('/');
+        } else {
+            echo '<div class="alert alert-danger" role="alert">Correo y/o constraseña invalidos</div>';
+            return view('/');
         };
     }
 
@@ -86,5 +93,13 @@ class RegisterUsuariosController extends BaseController
         echo view('layouts/header');
         echo view('ownerProfile');
         echo view('layouts/footer');
+    }
+
+    public function salir()
+    {
+        $session = session();
+        $session->destroy();
+        $datos = base_url() . '/public/login';
+        return    redirect()->to($datos);
     }
 }

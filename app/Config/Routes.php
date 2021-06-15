@@ -38,6 +38,14 @@ $routes->POST('/addPropietario', 'RegisterUsuariosController::addPropietario');
 $routes->get('/perfil', 'RegisterUsuariosController::viewOwner');
 $routes->get('/login', 'RegisterUsuariosController::login');
 $routes->POST('/signIn', 'RegisterUsuariosController::SignIn');
+$routes->get('/perfilPropietario', 'PerfilController::index');
+$routes->POST('/updatePerfil', 'PerfilController::updatePerfil');
+$routes->get('/salir', 'RegisterUsuariosController::salir');
+$routes->get('/pagos', 'RegisterUsuariosController::pagos');
+
+
+
+
 
 
 /*
