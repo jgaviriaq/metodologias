@@ -76,6 +76,32 @@
                                 <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#pay<?php echo $aparment['id_apartamento'] ?>">
                                     Pagar
                                 </button>
+                                <!-- Modal -->
+                                <div class="modal fade" id="pay<?php echo $aparment['id_apartamento'] ?>" tabindex="-1" aria-labelledby="payApto" aria-hidden="true" data-backdrop="static">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h4 class="modal-title text-white" id="Registrar Apartamento">Pagar Cuota Administración</h4>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <!-- <?php var_dump($aparment['id_apartamento'])  ?> -->
+                                                <form action="<?php echo $updateRoute ?>" method="POST" class="form" onsubmit="updateApto()">
+
+                                                    <input class="ciudad pago" type="text" name="ciudad" id="ciudad" placeholder="Ciudad" value='<?php echo $aparment['ciudad'] ?>' disabled>
+                                                    <input class="pais" type="text" name="pais" id="pais" placeholder="País" value=<?php echo $aparment['pais'] ?> disabled>
+                                                    <input class="direccion" type="text" name="direccion" id="direccion" placeholder="Dirección" value='<?php echo $aparment['direccion'] ?>' disabled>
+                                                    <input class="estado" type="text" name="estado" id="estado" placeholder="Estado" value='<?php echo $aparment['estado'] ?>' disabled>
+                                                    <input class="fecha" type="date" name="fecha" id="fecha" placeholder="Fecha de Pago" value='' required>
+                                                    <input class="valor" type="number" name="valor" id="valor" placeholder="Valor Cuota a Pagar" value='' required>
+
+                                                    <span id="warning" class="text-danger mt-3"></span>
+                                                    <button type="submit" class="btn-login" name="updateButton">Pagar</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#update<?php echo $aparment['id_apartamento'] ?>">
                                     Editar
                                 </button>
