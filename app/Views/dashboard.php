@@ -60,6 +60,7 @@
             foreach ($aparments as $aparment) : ?>
 
                 <?php $updateRoute = base_url() . "/public/updateApto?id={$aparment['id_apartamento']}"; ?>
+                <?php $pagarApartamento = base_url() . "/public/pagarApto?id={$aparment['id_apartamento']}"; ?>
                 <?php $deleteRoute = base_url() . "/public/deleteApto?id={$aparment['id_apartamento']}"; ?>
                 <div class='col mt-5'>
                     <div class='card'>
@@ -86,17 +87,17 @@
                                             </div>
                                             <div class="modal-body">
                                                 <!-- <?php var_dump($aparment['id_apartamento'])  ?> -->
-                                                <form action="<?php echo $updateRoute ?>" method="POST" class="form" onsubmit="updateApto()">
+                                                <form action="<?php echo $pagarApartamento ?>" method="POST" class="form" onsubmit="updateApto()">
 
                                                     <input class="ciudad pago" type="text" name="ciudad" id="ciudad" placeholder="Ciudad" value='<?php echo $aparment['ciudad'] ?>' disabled>
                                                     <input class="pais" type="text" name="pais" id="pais" placeholder="País" value=<?php echo $aparment['pais'] ?> disabled>
                                                     <input class="direccion" type="text" name="direccion" id="direccion" placeholder="Dirección" value='<?php echo $aparment['direccion'] ?>' disabled>
                                                     <input class="estado" type="text" name="estado" id="estado" placeholder="Estado" value='<?php echo $aparment['estado'] ?>' disabled>
-                                                    <input class="fecha" type="date" name="fecha" id="fecha" placeholder="Fecha de Pago" value='' required>
-                                                    <input class="valor" type="number" name="valor" id="valor" placeholder="Valor Cuota a Pagar" value='' required>
-
+                                                    <?php $fcha = date("Y-m-d");?>
+                                                    <input class="fecha" type="date" name="fecha" id="fecha" placeholder="Fecha de Pago" value="<?php echo $fcha;?>"  required>
+                                                  
                                                     <span id="warning" class="text-danger mt-3"></span>
-                                                    <button type="submit" class="btn-login" name="updateButton">Pagar</button>
+                                                    <button type="submit" class="btn-login" name="updateButton">Consultar Factura</button>
                                                 </form>
                                             </div>
                                         </div>

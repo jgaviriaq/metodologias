@@ -46,7 +46,9 @@ $routes->get('/profile', 'RegisterUsuariosController::profile');
 $routes->post('/updateApto', 'AptoController::updateApto');
 $routes->get('/deleteApto', 'AptoController::deleteApto');
 $routes->get('/registerApto', 'AptoController::registerApto');
+$routes->POST('/pagarApto', 'AptoController::pagar');
 $routes->post('/addApto', 'AptoController::addApto');
+
 
 
 /*

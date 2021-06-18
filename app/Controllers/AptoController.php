@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\AptoModel;
+use App\Models\facturacion;
 use App\Models\RegisterUsuariosModel;
 
 class AptoController extends BaseController
@@ -52,14 +53,14 @@ class AptoController extends BaseController
 			echo view('registerApartment', array('user' => $userData));
 			echo view('layouts/footer');
 		} else {
-	
+
 			$aptoModel->registerApto($estado, $cantidad_personas, $id_propietario, $ciudad, $pais, $direccion, $imagen);
 			$userData = $registroModel->getUser($email);
 			$aptoData = $aptoModel->getApto($id_propietario);
 
 			echo '<div class="alert alert-success m-0" role="alert">Apartamento Registrado con éxito</div>';
 			echo view('dashboard', array('user' => $userData, 'aparments' => $aptoData));
-		echo view('layouts/footer');
+			echo view('layouts/footer');
 		}
 	}
 
@@ -112,5 +113,18 @@ class AptoController extends BaseController
 
 		echo view('dashboard', array('user' => $userData, 'aparments' => $aptoData));
 		echo view('layouts/footer');
+	}
+
+	public function pagar()
+	{
+		$request = \Config\Services::request();
+		$aptoModel = new AptoModel();
+		$id_apartamento = $request->getGet('id');
+		$fecha = $request->getPost('fecha');
+		$aptoData = $aptoModel->getAptoId($id_apartamento);
+		$pagos= new facturacion();
+		$facturacion= $pagos->getPagoId($id_apartamento);
+		$pagoAnterior= end($facturacion);
+		echo view('factura_view', array('factura' => $aptoData,'fecha' => $fecha, 'pago'=>$pagoAnterior));
 	}
 }
