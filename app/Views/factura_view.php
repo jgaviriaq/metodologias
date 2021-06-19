@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="fabicon/x-icon" href="img/BPM ASESORIAS.jpg" />
-    <title>BPM Asesorias</title>
+    <title>Factura Administración</title>
     <link rel="stylesheet" type="text/css" href="css/styles.css" />
     <link rel="stylesheet" type="text/css" href="css/responsive.css" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
@@ -55,63 +55,104 @@
 
                     </div>
 
-                    <?php
-                    foreach ($factura as $item) :
-
-                    ?>
+                    <?php foreach ($factura as $item) : ?>
                         <div class="row" id="orden">
                             <div class="col md 12" id="orden">
-
-                                <input type="text" name="ordenServicio" value=" <?php echo session()->get('nombre') ?>" required="required">
+                                <label for="contacto">Propietario: </label>
+                                <input type="text" name="contacto" id="contacto" value=" <?php echo session()->get('nombre') ?>" disabled </div>
                             </div>
-                        </div>
 
-                        <div class="row" id="orden">
-                            <div class="col md 12" id="orden">
-                                <input type="text" name="contacto" value=" <?php echo $item['ciudad'] ?>" placeholder="Contacto" required="required">
-                            </div>
-                        </div>
+                            <div class="row" id="orden">
+                                <div class="col md 12" id="orden">
+                                    <label for="ciudad">Ciudad: </label>
+                                    <input type="text" name="ciudad" id="ciudad" value=" <?php echo $item['ciudad'] ?>" placeholder="ciudad" disabled </div>
+                                </div>
 
-                        <div class="row" id="orden">
-                            <div class="col md 12" id="contacto">
-                                <input type="text" name="marcaVehiculo" value="<?php echo $item['pais'] ?> " placeholder="Marca Vehiculo" required="required">
-                            </div>
-                        </div>
+                                <div class="row" id="orden">
+                                    <div class="col md 12" id="contacto">
+                                        <label for="pais">País: </label>
+                                        <input type="text" name="pais" id="pais" value="<?php echo $item['pais'] ?> " placeholder="País" disabled </div>
+                                    </div>
 
-                        <div class="row" id="orden">
-                            <div class="col md 12" id="contacto">
-                                <input type="text" name="modelo" value="<?php echo $item['direccion'] ?> " placeholder="Modelo" required="required">
-                            </div>
-                        </div>
+                                    <div class="row" id="orden">
+                                        <div class="col md 12" id="contacto">
+                                            <label for="direccion">Dirección:</label>
+                                            <input type="text" name="direccion" id="direccion" value="<?php echo $item['direccion'] ?> " placeholder="Dirección" disabled </div>
+                                        </div>
 
-                        <div class="row" id="orden">
-                            <div class="col md 12" id="contacto">
-                                <input type="text" name="placa" value="250000" placeholder="Placa" required="required">
-                            </div>
-                        </div>
+                                        <div class="row" id="orden">
+                                            <div class="col md 12" id="contacto">
+                                                <label for="valor">Valor Cuota Administración: </label>
+                                                <input type="text" name="valor" id="valor" value="$250.000" placeholder="Placa" disabled />
+                                            </div>
+                                        </div>
 
-                        <?php
-                        $anterior = new DateTime($pago['fecha_pago']);
-                        $actual= new DateTime($fecha);
-                        //  $interval = $anterior->diff($actual);    
-                        echo($anterior);
-                        echo($actual);
-                        // echo($interval)
-                        ?>
-                        <div class="row" id="orden">
-                            <div class="col md 12" id="contacto">
-                                <input type="text" name="nombreAplicador" value="<?php ?> " placeholder="Nombre del Aplicador" required="required">
-                            </div>
-                        </div>
+                                        <?php
+                                        // $mes;
+                                        function get_format($df)
+                                        {
+                                            $str = '';
+                                            $str .= ($df->invert == 1) ? ' - ' : '';
+                                            if ($df->y > 0) {
+                                                // years
+                                                $str .= ($df->y > 1) ? $df->y . ' Years ' : $df->y . ' Year ';
+                                            }
+                                            if ($df->m > 0) {
+                                                // month
+                                                $str .= ($df->m > 1) ? $df->m . ' Months ' : $df->m . ' Month ';
+                                            }
+                                            if ($df->d > 0) {
+                                                // days
+                                                $str .= ($df->d > 1) ? $df->d . ' Days ' : $df->d . ' Day ';
+                                            }
 
-                        <div class="row" id="orden">
-                            <div class="col md 12" id="contacto">
-                                <input type="text" name="cedulaAplicador" value="<?php ?> " placeholder="Cedula del Aplicador" required="required">
-                            </div>
-                        </div>
-                    <?php
-                    endforeach
-                    ?>
+                                            echo $str;
+                                        }
+
+                                        $anterior = new DateTime($pago['fecha_pago']);
+                                        $actual = new DateTime($fecha);
+                                        $interval = $anterior->diff($actual);
+
+                                        ?>
+
+                                        <div class="row" id="orden">
+                                            <div class="col md 12" id="contacto">
+                                                <label for="fechas">Intervalo de fechas: </label>
+                                                <input type="text" name="nombreAplicador" value="<?php echo get_format($interval) ?> " placeholder="Nombre del Aplicador" disabled>
+                                            </div>
+                                        </div>
+
+                                        <div style="">
+                                            <?php
+                                            $precio = 250000;
+                                            if ($interval->m < 1) {
+                                                $valor = $precio;
+                                            } else 
+                                            if ($interval->m === 1 && $interval->d === 0) {
+                                                $valor = $precio;
+                                            } else if ($interval->m >= 1 && $interval->d > 0 && $interval->m < 5) {
+                                                $total =  $precio * 0.03;
+                                                $valor = $precio + $total;
+                                                $valor = $valor * $interval->m;
+                                            } else if ($interval->m >= 5 && $interval->d >= 0) {
+                                                $total =  $precio * 0.03;
+                                                $valor = $precio + $total;
+                                                $valor = $valor * $interval->m;
+                                                echo 'Debido a que llevas más de 5 meses sin pagar, acabas de entrar a proceso juridico';
+                                            }
+                                            ?>
+                                        </div>
+
+
+                                        <div class="row" id="orden">
+                                            <div class="col md 12" id="contacto">
+                                                <label for="mora">Total a Pagar: </label>
+                                                <input type="text" name="mora" id="mora" value="<?php echo $valor ?> " placeholder="Valor con Mora" disabled>
+                                            </div>
+                                        </div>
+                                    <?php
+                                endforeach
+                                    ?>
 
 
                 </form>
@@ -127,11 +168,33 @@
 
             </footer>
 
-            <div class="row" id="boton1">
-                <div class="col-md-4">
-                    <button type="submit" name="btnpdf" class="btn btn-primary boton">Pagar</button>
+            <?php echo $factura[0]['id_apartamento']; ?>
+
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Launch demo modal
+            </button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Pagar</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            ...
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </div>
                 </div>
             </div>
+
+
     </main>
 
 
