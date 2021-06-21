@@ -46,4 +46,10 @@ class AptoModel extends Model
 
         $this->db->query($sql);
     }
+
+    function addPago($fecha_pago, $valor_cuota,$id_apartamento)
+    {
+        $sql = "INSERT INTO  pagos (fecha_pago,valor_cuota) VALUES ('{$fecha_pago}','{$valor_cuota}) WHERE id_apartamento='{$id_apartamento}')";
+        $this->db->query($sql);
+    }
 };

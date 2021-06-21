@@ -48,6 +48,8 @@ $routes->get('/deleteApto', 'AptoController::deleteApto');
 $routes->get('/registerApto', 'AptoController::registerApto');
 $routes->POST('/pagarApto', 'AptoController::pagar');
 $routes->post('/addApto', 'AptoController::addApto');
+$routes->POST('/addPagos', 'AptoController::addPagos');
+
 
 
 

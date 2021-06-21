@@ -127,4 +127,15 @@ class AptoController extends BaseController
 		$pagoAnterior= end($facturacion);
 		echo view('factura_view', array('factura' => $aptoData,'fecha' => $fecha, 'pago'=>$pagoAnterior));
 	}
+
+	public function addPagos(){
+		$request = \Config\Services::request();
+		$aptoModel = new AptoModel();
+		$id_apartamento = $request->getGet('id');
+		$contacto = $request->getPost('contacto');
+		$ciudad= $request->getPost('ciudad');
+		echo($id_apartamento);
+		echo($contacto);
+		echo($ciudad);
+	}
 }
