@@ -40,7 +40,7 @@
 
             </section>
             <section class="container-fluid">
-                <form id="form" method="POST">
+                <form id="form" action="<?php echo base_Url(); ?>/public/addPagos" method="POST">
                     <div class="row">
 
                         <div class="col-md-4">
@@ -57,104 +57,112 @@
 
                     <?php foreach ($factura as $item) : ?>
                         <div class="row" id="orden">
-                      
+                            <?php $pagos = base_url() . "/public/addPagos?id={$item['id_apartamento']}"; ?>
+
                             <div class="col md 12" id="orden">
                                 <label for="contacto">Propietario: </label>
-                                <input type="text" name="contacto" id="contacto" value=" <?php echo session()->get('nombre') ?>" disabled </div>
+                                <input type="text" name="contacto" id="contacto" value=" <?php echo session()->get('nombre') ?>" disabled>
                             </div>
+                        </div>
 
-                            <div class="row" id="orden">
-                                <div class="col md 12" id="orden">
-                                    <label for="ciudad">Ciudad: </label>
-                                    <input type="text" name="ciudad" id="ciudad" value=" <?php echo $item['ciudad'] ?>" placeholder="ciudad" disabled </div>
-                                </div>
+                        <div class="row" id="orden">
+                            <div class="col md 12" id="orden">
+                                <label for="ciudad">Ciudad: </label>
+                                <input type="text" name="ciudad" id="ciudad" value=" <?php echo $item['ciudad'] ?>" placeholder="ciudad" disabled>
+                            </div>
+                        </div>
 
-                                <div class="row" id="orden">
-                                    <div class="col md 12" id="contacto">
-                                        <label for="pais">País: </label>
-                                        <input type="text" name="pais" id="pais" value="<?php echo $item['pais'] ?> " placeholder="País" disabled </div>
-                                    </div>
+                        <div class="row" id="orden">
+                            <div class="col md 12" id="contacto">
+                                <label for="pais">País: </label>
+                                <input type="text" name="pais" id="pais" value="<?php echo $item['pais'] ?> " placeholder="País" disabled>
+                            </div>
+                        </div>
 
-                                    <div class="row" id="orden">
-                                        <div class="col md 12" id="contacto">
-                                            <label for="direccion">Dirección:</label>
-                                            <input type="text" name="direccion" id="direccion" value="<?php echo $item['direccion'] ?> " placeholder="Dirección" disabled </div>
-                                        </div>
+                        <div class="row" id="orden">
+                            <div class="col md 12" id="contacto">
+                                <label for="direccion">Dirección:</label>
+                                <input type="text" name="direccion" id="direccion" value="<?php echo $item['direccion'] ?> " placeholder="Dirección" disabled>
+                            </div>
+                        </div>
 
-                                        <div class="row" id="orden">
-                                            <div class="col md 12" id="contacto">
-                                                <label for="valor">Valor Cuota Administración: </label>
-                                                <input type="text" name="valor" id="valor" value="$250.000" placeholder="Placa" disabled />
-                                            </div>
-                                        </div>
+                        <div class="row" id="orden">
+                            <div class="col md 12" id="contacto">
+                                <label for="valor">Valor Cuota Administración: </label>
+                                <input type="text" name="valor" id="valor" value="$250.000" placeholder="Placa" disabled />
+                            </div>
+                        </div>
 
-                                        <?php
-                                        // $mes;
-                                        function get_format($df)
-                                        {
-                                            $str = '';
-                                            $str .= ($df->invert == 1) ? ' - ' : '';
-                                            if ($df->y > 0) {
-                                                // years
-                                                $str .= ($df->y > 1) ? $df->y . ' Years ' : $df->y . ' Year ';
-                                            }
-                                            if ($df->m > 0) {
-                                                // month
-                                                $str .= ($df->m > 1) ? $df->m . ' Months ' : $df->m . ' Month ';
-                                            }
-                                            if ($df->d > 0) {
-                                                // days
-                                                $str .= ($df->d > 1) ? $df->d . ' Days ' : $df->d . ' Day ';
-                                            }
+                        <?php
+                        // $mes;
+                        function get_format($df)
+                        {
+                            $str = '';
+                            $str .= ($df->invert == 1) ? ' - ' : '';
+                            if ($df->y > 0) {
+                                // years
+                                $str .= ($df->y > 1) ? $df->y . ' Years ' : $df->y . ' Year ';
+                            }
+                            if ($df->m > 0) {
+                                // month
+                                $str .= ($df->m > 1) ? $df->m . ' Months ' : $df->m . ' Month ';
+                            }
+                            if ($df->d > 0) {
+                                // days
+                                $str .= ($df->d > 1) ? $df->d . ' Days ' : $df->d . ' Day ';
+                            }
 
-                                            echo $str;
-                                        }
+                            echo $str;
+                        }
 
-                                        $anterior = new DateTime($pago['fecha_pago']);
-                                        $actual = new DateTime($fecha);
-                                        $interval = $anterior->diff($actual);
+                        $anterior = new DateTime($pago['fecha_pago']);
+                        $actual = new DateTime($fecha);
+                        $interval = $anterior->diff($actual);
 
-                                        ?>
+                        ?>
 
-                                        <div class="row" id="orden">
-                                            <div class="col md 12" id="contacto">
-                                                <label for="fechas">Intervalo de fechas: </label>
-                                                <input type="text" name="nombreAplicador" value="<?php echo get_format($interval) ?> " placeholder="Nombre del Aplicador" disabled>
-                                            </div>
-                                        </div>
+                        <div class="row" id="orden">
+                            <div class="col md 12" id="contacto">
+                                <label for="fechas">Intervalo de fechas: </label>
+                                <input type="text" name="nombreAplicador" value="<?php echo get_format($interval) ?> " placeholder="Nombre del Aplicador" disabled>
+                            </div>
+                        </div>
 
-                                        <div style="">
-                                            <?php
-                                            $precio = 250000;
-                                            if ($interval->m < 1) {
-                                                $valor = $precio;
-                                            } else 
+                        <div style="">
+                            <?php
+                            $precio = 250000;
+                            if ($interval->m < 1) {
+                                $valor = $precio;
+                            } else 
                                             if ($interval->m === 1 && $interval->d === 0) {
-                                                $valor = $precio;
-                                            } else if ($interval->m >= 1 && $interval->d > 0 && $interval->m < 5) {
-                                                $total =  $precio * 0.03;
-                                                $valor = $precio + $total;
-                                                $valor = $valor * $interval->m;
-                                            } else if ($interval->m >= 5 && $interval->d >= 0) {
-                                                $total =  $precio * 0.03;
-                                                $valor = $precio + $total;
-                                                $valor = $valor * $interval->m;
-                                                echo 'Debido a que llevas más de 5 meses sin pagar, acabas de entrar a proceso juridico';
-                                            }
-                                            ?>
-                                        </div>
+                                $valor = $precio;
+                            } else if ($interval->m >= 1 && $interval->d > 0 && $interval->m < 5) {
+                                $total =  $precio * 0.03;
+                                $valor = $precio + $total;
+                                $valor = $valor * $interval->m;
+                            } else if ($interval->m >= 5 && $interval->d >= 0) {
+                                $total =  $precio * 0.03;
+                                $valor = $precio + $total;
+                                $valor = $valor * $interval->m;
+                                echo 'Debido a que llevas más de 5 meses sin pagar, acabas de entrar a proceso juridico';
+                            }
+                            ?>
+                        </div>
 
 
-                                        <div class="row" id="orden">
-                                            <div class="col md 12" id="contacto">
-                                                <label for="mora">Total a Pagar: </label>
-                                                <input type="text" name="mora" id="mora" value="<?php echo $valor ?> " placeholder="Valor con Mora" disabled>
-                                            </div>
-                                        </div>
-                                    <?php
-                                endforeach
-                                    ?>
+                        <div class="row" id="orden">
+                            <div class="col md 12" id="contacto">
+                                <label for="mora">Total a Pagar: </label>
+                                <input type="text" name="mora" id="mora" value="<?php echo $valor ?> " placeholder="Valor con Mora" disabled>
+                            </div>
+                        </div>
+                    <?php
+                    endforeach
+                    ?>
 
+                    <div class="mb-3">
+                        <button type="submit" class="btn btn-primary"><i class="fas fa-sign-in-alt"></i> Pagar</button>
+                    </div>
 
                 </form>
 
@@ -170,30 +178,6 @@
             </footer>
 
             <?php echo $factura[0]['id_apartamento']; ?>
-
-            <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                Pagar
-            </button>
-
-            <!-- Modal -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Pagar</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            ...
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
 
     </main>
