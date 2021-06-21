@@ -56,7 +56,7 @@
                     <img src='{$item->image}' alt=''>
                     <br>
                 </div>
-                <form class='col-12'  action= '{$update}' method='POST' >
+                <form class='col-12' onsubmit='return validarPerfil();' action= '{$update}' method='POST' >
                     <div class='mb-3' id='grupoNombre'>
                         <div class='form-group'>
                             <label class='icon'>U</label>
