@@ -18,12 +18,14 @@ class RegisterUsuariosController extends BaseController
     public function pagos()
     {
         $registroModel = new RegisterUsuariosModel();
+		$aptoModel = new AptoModel();
         //inicializando sesión
         $session = session();
         $emailuser = $session->get('email');
         $userData = $registroModel->getUser($emailuser);
-
-        echo view('pagos', array('user' => $userData));
+		$pagosAptoData = $aptoModel->getPagosApto();
+	
+        echo view('pagos', array('user' => $userData, 'aparments' => $pagosAptoData));
         echo view('layouts/footer');
     }
 

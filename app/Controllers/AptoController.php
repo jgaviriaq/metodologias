@@ -122,20 +122,39 @@ class AptoController extends BaseController
 		$id_apartamento = $request->getGet('id');
 		$fecha = $request->getPost('fecha');
 		$aptoData = $aptoModel->getAptoId($id_apartamento);
-		$pagos= new facturacion();
-		$facturacion= $pagos->getPagoId($id_apartamento);
-		$pagoAnterior= end($facturacion);
-		echo view('factura_view', array('factura' => $aptoData,'fecha' => $fecha, 'pago'=>$pagoAnterior));
+		$pagos = new facturacion();
+		$facturacion = $pagos->getPagoId($id_apartamento);
+		$pagoAnterior = end($facturacion);
+		echo view('factura_view', array('factura' => $aptoData, 'fecha' => $fecha, 'pago' => $pagoAnterior));
 	}
 
-	public function addPagos(){
+	public function addPagos()
+	{
 		$request = \Config\Services::request();
 		$aptoModel = new AptoModel();
+		$registroModel = new RegisterUsuariosModel();
 		$id_apartamento = $request->getGet('id');
-		$contacto = $request->getPost('contacto');
-		$ciudad= $request->getPost('ciudad');
-		echo($id_apartamento);
-		echo($contacto);
-		echo($ciudad);
+		$fecha_pago = $request->getPost('fechaVencimiento');
+		$valor_cuota = $request->getPost('mora');
+
+		$session = session();
+		$idUser = $session->get('id');
+        $emailuser = $session->get('email');
+        $userData = $registroModel->getUser($emailuser);
+		$aptoData = $aptoModel->getAptoIds($id_apartamento, $idUser);
+		$pagosAptoData = $aptoModel->getPagosApto();
+		$pagosData = $aptoModel->getPagos($id_apartamento, $fecha_pago);
+
+		if (count($pagosData) >= 1) {
+			echo '<div class="alert alert-danger m-0" role="alert">No se pudo realizar el pago del apartamento, la fecha ingresada ya fue cancelada</div>';
+		} else {
+			$aptoModel->addPago($fecha_pago, $valor_cuota, $id_apartamento);
+			echo '<div class="alert alert-success m-0" role="alert">Pago Realizado con Éxito</div>';
+		}
+		echo view('pagos', array( 'user' => $userData, 'aparments' => $pagosAptoData));
+		echo view('layouts/footer');
 	}
+
+	
 }
+

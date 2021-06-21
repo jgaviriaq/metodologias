@@ -35,10 +35,46 @@
                 </ul>
                 <ul class="navbar-nav me-4 mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active ms-5 " aria-current="page" href="<?php echo base_url() ?>/public/perfilPropietario"><?php print_r($user[0]['nombre'])
-                                                                                                                                        ?></a>
+                        <a class="nav-link active ms-5 " aria-current="page" href="<?php echo base_url() ?>/public/perfilPropietario"><?php echo ($user[0]['nombre']) ?></a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
+
+    <main>
+        <div class="container d-flex justify-content-center ">
+            <h1 class=" mt-5">Pagos Realizados</h1>
+        </div>
+
+        <div class="container m-5">
+            <?php if ($aparments === array()) {
+                echo "<h5>No tienes pagos registrados</h5>";
+            } ?> <?php if ($aparments !== array()) {
+                        echo " <div class='row row-cols-1 row-cols-md-3 g-4'>";
+                    }
+                    ?>
+
+            <?php
+            foreach ($aparments as $aparment) : ?>
+
+                <?php $updateRoute = base_url() . "/public/updateApto?id={$aparment['id_apartamento']}"; ?>
+                <?php $pagarApartamento = base_url() . "/public/pagarApto?id={$aparment['id_apartamento']}"; ?>
+                <?php $deleteRoute = base_url() . "/public/deleteApto?id={$aparment['id_apartamento']}"; ?>
+                <div class='col mt-5'>
+                    <div class='card'>
+                        <div class='card-body'>
+                            <h5 class='card-title'>
+                                <?php echo $aparment['ciudad'] . ' - ' . $aparment['pais'] ?>
+                            </h5>
+                            <p class='m-0'> <strong>Estado:</strong> <?php echo $aparment['estado'] ?></p>
+                            <p class='m-0'> <strong>Dirección:</strong> <?php echo $aparment['direccion'] ?></p>
+                            <p class='m-0'> <strong>Habitantes:</strong> <?php echo $aparment['cantidad_personas'] ?></p>
+                            <p class='m-0'> <strong>Fecha Pago:</strong> <?php echo $aparment['fecha_pago'] ?></p>
+                            <p class='m-0'> <strong>Valor Pagado:</strong> $<?php echo $aparment['valor_cuota'] ?></p>
+                        </div>
+                    </div>
+                </div>
+            <?php endforeach ?>
+        </div>
+    </main>

@@ -49,6 +49,7 @@ $routes->get('/registerApto', 'AptoController::registerApto');
 $routes->POST('/pagarApto', 'AptoController::pagar');
 $routes->post('/addApto', 'AptoController::addApto');
 $routes->POST('/addPagos', 'AptoController::addPagos');
+$routes->get('/factura', 'AptoController::factura');
 
 
 
